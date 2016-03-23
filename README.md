@@ -15,4 +15,4 @@ This includes BIOS setup, and running: ```ethtool -s eth0 wol g``` after startup
 3. Add the MAC address of the receiver, its IP address (if static), the login information, and the path to the script to run, into this script.
 4. Optionally add a sendmail command or similar to warn if the pool is degraded.
 5. Optionally setup ```cron``` to run this script on a schedule, such as:
-```0 8 * * *	root	/tank/storage/Scripts/run-zfs-backup.sh >> /var/log/run-zfs-backup.log```
+```0 8 * * *	root	/tank/storage/Scripts/run-zfs-backup.sh >> /var/log/run-zfs-backup.log 2>&1```

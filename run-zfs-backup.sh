@@ -21,11 +21,20 @@ WOL_MAC="aa:bb:cc:dd:ee"
 WOL_IP="192.168.30.145"
 REM_LOGIN="root@darwin"
 ZFS_BACKUP_SCRIPT="/tank/storage/Scripts/zfs-backup.sh"
+POOL_NAME="tank"
 
 echo ""
 echo "Romaco ZFS Offline Backup Script v0.0.1 Starting..."
 echo "Start time: $(date)"
 echo ""
+
+# ZoL sometimes deadlocks if sending and scrubbing simultaneously
+SCRUBBING=$(zpool status $POOL_NAME | grep "scrub in progress" | wc -l)
+
+if [ $SCRUBBING -ne 0 ]; then
+	echo "WARNING: Pool is scrubbing, aborting backup"
+	exit 3
+fi
 
 # wake up backup server (3 times beacause I don't trust WOL)
 echo "Waking up backup server..."
