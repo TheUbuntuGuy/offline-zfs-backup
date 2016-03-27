@@ -49,7 +49,8 @@ sleep 120
 
 # check if it's done booting
 echo "Checking if server is up..."
-STAT=$(ssh -n $REM_LOGIN "uptime")
+ssh -n $REM_LOGIN "uptime"
+STAT=$?
 echo ""
 
 # if it's not ready, try again 3 times before giving up
@@ -58,7 +59,8 @@ until [ $STAT -eq 0 -o $RETRIES -eq 0 ]; do
 	echo "Server not ready. Trying again in another 30 seconds..."
 	let RETRIES-=1
 	sleep 30
-	STAT=$(ssh -n $REM_LOGIN "uptime")
+	ssh -n $REM_LOGIN "uptime"
+	STAT=$?
 	echo ""
 done
 
@@ -71,7 +73,8 @@ echo "Server is up"
 
 # check if the remote pool is healthy
 echo "Checking health of remote pool..."
-STAT=$(ssh -n $REM_LOGIN "zpool status -x btank")
+ssh -n $REM_LOGIN "zpool status -x btank"
+STAT=$?
 echo ""
 
 # notify and abort if there is a pool problem
