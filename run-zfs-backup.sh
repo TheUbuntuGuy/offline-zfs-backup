@@ -49,16 +49,16 @@ sleep 120
 
 # check if it's done booting
 echo "Checking if server is up..."
-ssh -n $REM_LOGIN "uptime"
+STAT=$(ssh -n $REM_LOGIN "uptime")
 echo ""
 
 # if it's not ready, try again 3 times before giving up
 RETRIES=3
-until [ $? -eq 0 -o $RETRIES -eq 0 ]; do
+until [ $STAT -eq 0 -o $RETRIES -eq 0 ]; do
 	echo "Server not ready. Trying again in another 30 seconds..."
 	let RETRIES-=1
 	sleep 30
-	ssh -n $REM_LOGIN "uptime"
+	STAT=$(ssh -n $REM_LOGIN "uptime")
 	echo ""
 done
 
@@ -71,11 +71,11 @@ echo "Server is up"
 
 # check if the remote pool is healthy
 echo "Checking health of remote pool..."
-ssh -n $REM_LOGIN "zpool status -x btank"
+STAT=$(ssh -n $REM_LOGIN "zpool status -x btank")
 echo ""
 
 # notify and abort if there is a pool problem
-if [ $? -ne 0 ]; then
+if [ $STAT -ne 0 ]; then
 	echo "ERROR: Pool not healthy, aborting"
 	echo "Problem with pool detected. Sending alert email..."
 	# TODO call your own sendmail program/script here
