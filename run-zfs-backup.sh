@@ -96,6 +96,7 @@ if [ $? -eq 0 ]; then
 	echo "Backup complete"
 else
 	echo "ERROR: Backup script returned non-zero exit code: $?"
+	# TODO call your own sendmail program/script here
 fi
 
 echo "Preparing to poweroff server..."
