@@ -66,6 +66,7 @@ done
 
 if [ $RETRIES -eq 0 ]; then
 	echo "ERROR: Backup server not online, giving up"
+	# TODO call your own sendmail program/script here
 	exit 1
 fi
 
@@ -107,3 +108,5 @@ echo "Powering off backup server..."
 ssh -n $REM_LOGIN "poweroff"
 echo "End time: $(date)"
 echo "Backup process complete. Exiting"
+
+exit 0
