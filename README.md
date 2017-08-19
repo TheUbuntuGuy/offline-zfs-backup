@@ -9,7 +9,7 @@ This script uses WOL to wake up the machine, do some preliminary checks, invoke 
 Setup
 =====
 
-1. Setup a script to perform incremental backup such as [zfs-backup](https://github.com/adaugherity/zfs-backup).
+1. Setup a script to perform incremental backup such as [zfs-backup-manager](https://github.com/TheUbuntuGuy/zfs-backup-manager).
 2. Setup your receiving server to wake via WOL.   
 This includes BIOS setup, and running: ```ethtool -s eth0 wol g``` after startup (```rc.local``` is a good place).
 3. Add the MAC address of the receiver, its IP address (if static), the login information, and the path to the script to run, into this script.
