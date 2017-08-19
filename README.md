@@ -1,7 +1,7 @@
 offline-zfs-backup
 ==================
 
-This script works in tandem with a script like https://github.com/adaugherity/zfs-backup
+This script works in tandem with a script like https://github.com/TheUbuntuGuy/zfs-backup-manager
 which performs automatic incremental snapshot send-receive to a server which is not always running.
 
 This script uses WOL to wake up the machine, do some preliminary checks, invoke the backup script, and poweroff the machine once again.
